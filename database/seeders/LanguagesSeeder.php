@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,8 +24,14 @@ class LanguagesSeeder extends Seeder
             ],
         ];
 
-        foreach ( $languages as $language ) {
-            DB::table( 'languages' )->insert( $language );
+        foreach ( $languages as $languageData ) {
+            $language = DB::table( 'languages' )->where( 'name', $languageData['name'] )->first();
+
+            if ( ! $language ) {
+                $languageData['created_at'] = Carbon::now();
+                $languageData['updated_at'] = Carbon::now();
+                DB::table( 'languages' )->insert( $languageData );
+            }
         }
     }
 }
