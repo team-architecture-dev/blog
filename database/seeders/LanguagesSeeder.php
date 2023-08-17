@@ -24,13 +24,13 @@ class LanguagesSeeder extends Seeder
             ],
         ];
 
-        foreach ( $languages as $languageData ) {
-            $language = DB::table( 'languages' )->where( 'name', $languageData['name'] )->first();
+        foreach ($languages as $languageData) {
+            $language = DB::table('languages')->where('name', $languageData['name'])->first();
 
-            if ( ! $language ) {
+            if (! $language) {
                 $languageData['created_at'] = Carbon::now();
                 $languageData['updated_at'] = Carbon::now();
-                DB::table( 'languages' )->insert( $languageData );
+                DB::table('languages')->insert($languageData);
             }
         }
     }
